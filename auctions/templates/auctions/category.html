@@ -1,0 +1,36 @@
+{% extends "auctions/layout.html" %}
+
+{% block title %}
+    {{category}} Listings
+{% endblock %}
+
+{% block body %}
+    {% if user.is_authenticated %}
+    <div class="row mb-4 mt-4 mx-auto" style="width: 94%;">
+        <div class="col d-flex">
+            <h3 style="font-weight: 400; display: inline-flex;">
+                Category:&nbsp;<i>{{category}} </i>
+            </h3>
+        </div>
+    </div>
+    <div class="row mx-auto" style="width: 90%;">
+        {% for item in listing %}
+        <div class="col-lg-3 p-0">
+            <div class="card2 h-100">
+                <a href="{% url 'auction:listing' item.id %}">
+                    <img src="{{item.url}}" class="card-img-top" alt="{{item.title}}-image"
+                        style="height: 180px; width:90%; object-fit: contain;">
+                    <span class="card-title" style="padding: 30px 25px 0">{{item.title|capfirst}}</span>
+                    <h5 class="card-text text-right tilePrice2">${{item.start_price}}</h5>
+                </a>
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+    {% else %}
+    <div class="jumbotron jumbotron-fluid mx-n5 text-center" style="margin-top: 100px">
+        <h1 class="display-2">Hi there!</h1>
+        <p class="lead " style="font-size: 26px;">You need to login to view this site's contents. Please <a href="{% url 'auction:login' %}">login</a> or <a href="{% url 'auction:register' %}">register</a> for an account if you do not have one.</p>
+    </div>
+    {% endif %}
+{% endblock %}

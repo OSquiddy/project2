@@ -1,0 +1,110 @@
+{% extends "auctions/layout.html" %}
+
+{% block title %}
+Create Listing
+{% endblock %}
+
+{% block body %}
+<div class="row justify-content-center">
+    <div class="col-11 ">
+        <h3 style="font-weight: 400;">Create Listing</h3>
+    </div>
+</div>
+<div class="row justify-content-center">
+    <div class="col-11">
+        <div class="form-container" id="createFormContainer">
+            <form action="{% url 'auction:create' %}" method="POST" id="createForm">
+                {% csrf_token %}
+                <div class="create-list-field row">
+                    <div class="col-3">
+                        <label for="title">Title<span style="color:red;">*</span></label>
+                    </div>
+                    <div class="col-9">
+                        <input type="text" name="title" class="createFormTextInput">
+                    </div>
+                </div>
+                <hr>
+                <div class="create-list-field row">
+                    <div class="col-3">
+                        <label for="image-url">Image URL</label>
+                    </div>
+                    <div class="col-9">
+                        <input type="url" name="image-url" class="createFormTextInput">
+                    </div>
+                </div>
+                <hr>
+                <div class="create-list-field row">
+                    <div class="col-3">
+                        <label for="description">Description<span style="color:red;">*</span></label>
+                    </div>
+                    <div class="col-9">
+                        <textarea type="text" name="description" rows="4"> </textarea>
+                    </div>
+                    <hr>
+                </div>
+                <hr>
+                <div class="create-list-field row create-group">
+                    <div class="col-3">
+                        <label>First Category (Recommended)</label>
+                    </div>
+                    <div class="col-9">
+                        <select name="cat1">
+                            {% for option in choices %}
+                            <option value="{{option.0}}">{{option.1}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="create-list-field row create-group">
+                    <div class="col-3">
+                        <label>Second Category (Optional)</label>
+                    </div>
+                    <div class="col-9">
+                        <select name="cat2">
+                            {% for option in choices %}
+                            <option value="{{option.0}}">{{option.1}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="create-list-field row create-group">
+                    <div class="col-3">
+                        <label>Third Category (Optional)</label>
+                    </div>
+                    <div class="col-9">
+                        <select name="cat3">
+                            {% for option in choices %}
+                            <option value="{{option.0}}">{{option.1}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <hr>
+                <div class="create-list-field row create-group">
+                    <div class="col-3">
+                        <label>Condition:</label>
+                    </div>
+                    <div class="col-9">
+                        <select name="condition">
+                            {% for condition in conditionList %}
+                            <option value="{{condition.0}}">{{condition.1}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <hr>
+                <div class="create-list-field row">
+                    <div class="col-3">
+                        <label for="price">Starting Price:</label>
+                    </div>
+                    <div class="col-9">
+                        <input type="number" name="price">
+                    </div>
+                </div>
+                <button class="btn btn-primary" id="createButton">Create Listing</button>
+            </form>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

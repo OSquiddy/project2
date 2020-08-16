@@ -1,0 +1,129 @@
+<!-- {% load static %} -->
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atlantis HomePage</title>
+    <link rel="shortcut icon" type="image/x-icon" href="C:\Users\siddi\Documents\HarvardCS50W\project2\commerce\auctions\static\auctions\images\AtlantisIconSW2.png">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+        crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/e46601e7fc.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand mx-4" href="#">
+            <!-- <img src="{% static 'auctions/images/AtlantisG.png' %}" alt="atlantis-logo"> -->
+            <img src="C:\Users\siddi\Documents\HarvardCS50W\project2\commerce\auctions\static\auctions\images\AtlantisSW.png"
+                alt="atlantis-logo" style="width: 200px;">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#atlantisNavbarContent" aria-controls="atlantisNavbarContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        <div class="collapse navbar-collapse" id="atlantisNavbarContent">
+            <ul class="navbar-nav mr-5">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categories</a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#">Home</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Furntiture</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Active Listings</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">All Listings</a>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <div class="search-form mx-auto">
+                    <input class="form-control mr-sm-2" id="search-input" type="search" placeholder="What are you looking for?" aria-label="Search">
+                    <button type="submit">
+                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-search" fill="currentColor"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z" />
+                            <path fill-rule="evenodd"
+                                d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z" />
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> -->
+            </form>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item"  id="login-link">
+                    <a class="nav-link" href="#">Login & Register <i class="fas fa-user ml-1"></i></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Wishlist <i class="fas fa-shopping-bag ml-1"></i></a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    
+</body>
+<style>
+    .search-form .form-control {
+        border: none;
+        padding: 0;
+        width: 90%;
+        margin: 0 !important;
+    }
+    #search-input:focus {
+        box-shadow: none;
+    }
+    .search-form button:focus {
+        outline: none;
+    }
+    .search-form button {
+        background-color: transparent;
+        color: #495057;
+        border: none;
+        padding: 0;
+        margin: 0;
+    }
+    .search-form {
+        background-color: white;
+        padding: 0 10px;
+        border: 1px solid lightgray;
+        border-radius: 5px;
+        width: 350px;
+    }
+    .search-form:focus-within {
+        /* box-shadow: 0px 0px 3px #757575; */
+        /* outline: auto; */
+        border: 1px solid grey;
+    }
+    .search-form:focus-within button {
+        /* color: blue; */
+    }
+    #login-link a::after {
+        content: '|';
+        padding-left: 1rem;
+
+    }
+    .dropdown-menu {
+        margin-top: 10px;
+        border-radius: 0;
+        border: none;
+        background-color: #fdfcfc;
+    }
+</style>
+
+</html>

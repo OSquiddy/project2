@@ -1,0 +1,82 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+{% if user.is_authenticated %}
+<div class="row mb-4 mx-auto mt-4" style="width: 94%;">
+    <div class="col d-flex">
+        <h2 style="font-weight: 400; display: inline-flex;">
+            {% if displayAll %}
+            All Listings
+            {% else %}
+            Active Listings
+            {% endif %}
+        </h2>
+        <form name="viewOption" id="viewOption" method="POST" style="display: inline-flex; margin-left: auto; margin-right: 10px">
+            {% csrf_token %}
+            <button class="btn btn-light"><i class="fas fa-th-large"></i></button>
+            <button class="btn btn-light" name="listView"><i class="fas fa-th-list"></i></button>
+        </form>
+    </div>
+</div>
+
+    {% if listView %}
+    {% for item in listing %}
+    <a href="{% url 'auction:listing' item.id %}" id="watchlist-link">
+        <div class="row watchlistItem">
+            <div class="col-lg-4 wlItemImg">
+                <img src="{{item.url}}" alt="" id="wlItemImg-image">
+            </div>
+            <div class="col-lg-8 wlItemInfo">
+                <div class="row">
+                    <div class="col wlItemTitle">
+                        <h6> {{item.title|capfirst}} </h6>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col wlItemBody">
+                        <div class="info description">Description: {{item.description}}</div>
+                        <div class="info">Bid starts from : ${{item.start_price}}</div>
+                        {% if item.active %}
+                        <div class="info">Status: Active</div>
+                        {% else %}
+                        <div class="info">Status: Closed</div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col d-inline-flex align-self-end card-footer">
+                        <small class="text-muted">Posted by : {{item.user.username|capfirst}}</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </a>
+    <hr style="width: 80%">
+    {% endfor %} 
+    {% else %}
+
+        <div class="row mx-auto" style="width: 90%;">
+            {% for item in listing %}
+            <div class="col-lg-3 p-0">
+                <div class="card2 h-100">
+                    <a href="{% url 'auction:listing' item.id %}">
+                        <img src="{{item.url}}" class="card-img-top" alt="{{item.title}}-image"
+                            style="height: 180px; width:90%; object-fit: contain;">
+                        <span class="card-title" style="padding: 30px 25px 0">{{item.title|capfirst}}</span>
+                        <h5 class="card-text text-right tilePrice2">${{item.start_price}}</h5>
+                    </a>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+    {% endif %} 
+{% else %}
+<div class="col p-0">
+    <div class="jumbotron jumbotron-fluid mx-n5 text-center" style="margin-top: 100px">
+        <h1 class="display-2">Hi there!</h1>
+        <p class="lead " style="font-size: 26px;">You need to be logged in to view this site's contents. Please <a href="{% url 'auction:login' %}">sign in</a> or <a href="{% url 'auction:register' %}">register</a> for an account if you do not have one.</p>
+</div>
+</div>
+
+{% endif %}
+{% endblock %}

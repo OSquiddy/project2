@@ -1,0 +1,34 @@
+{% extends "auctions/layout.html" %}
+
+{% block title %}
+    Category List
+{% endblock %}
+
+{% block body %}
+{% if user.is_authenticated %}
+<div class="row mb-4 mt-4 mx-auto" style="width: 94%;">
+    <div class="col d-flex">
+        <h3 style="font-weight: 400; display: inline-flex;"> Categories </h3>
+    </div>
+</div>
+    <div class="row mx-auto" style="width: 90%;">
+        {% for categoryItem, poster in finalCategoryList %}
+        <div class="col-3" style="margin: 15px 0">
+            <div class="card3 h-100">
+                <a href="{% url 'auction:filteredByCat' categoryItem.0 %}">
+                    <img src="{{poster.1}}" class="card-img-top" alt="{{item.title}}-image"
+                    style="height: 170px; width:100%; object-fit: cover;">
+                <span class="card-title" style="padding: 12px 25px 0">{{categoryItem.1}}</span>
+            
+                </a>
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+{% else %}
+<div class="jumbotron jumbotron-fluid mx-n5 text-center" style="margin-top: 100px">
+    <h1 class="display-2">Hi there!</h1>
+    <p class="lead " style="font-size: 26px;">You need to login to view this site's contents. Please <a href="{% url 'auction:login' %}">login</a> or <a href="{% url 'auction:register' %}">register</a> for an account if you do not have one.</p>
+</div>
+{% endif %}
+{% endblock %}
