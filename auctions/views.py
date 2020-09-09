@@ -13,6 +13,7 @@ from .models import User, Listing, Bid, Comment, WatchList
 from . import utils
 
 def index(request):
+    # Skip the first option in the categoryList, since it is blank
     categoryList = Listing.choices[1:]
     listing = Listing.objects.filter(active=True)
     if request.method == "POST":
@@ -31,7 +32,10 @@ def index(request):
 def all_listings(request):
     categoryList = Listing.choices[1:]
     listing = Listing.objects.all()
+    
+    # Display inactive listings as well
     displayAll = True
+    
     if request.method == "POST":
         if 'listView' in request.POST:
             listView = True
@@ -158,6 +162,7 @@ def listing(request, id):
     except WatchList.DoesNotExist:
         watchlist = None
     if watchlist != None:
+        # Listing is present in the Watchlist
         listing_is_present = True 
     if latestBid !=  None:
         latestBidPrice = latestBid.price
