@@ -20,47 +20,100 @@
         integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
         crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/e46601e7fc.js" crossorigin="anonymous"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet">
 </head>
 
 <body>
     <div class="content mb-3">
         <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-light">
-            <a class="navbar-brand mx-4" href="{% url 'auction:index' %}">
-                <img src="{% static 'auctions/images/AtlantisLogoST(W+W).png' %}" alt="atlantis-logo" style="width: 200px">
+            <a class="navbar-brand mx-md-4 mx-lg-2 mx-xl-4" href="{% url 'auction:index' %}">
+                <img src="{% static 'auctions/images/AtlantisLogoST(W+W).png' %}" alt="atlantis-logo"
+                    id="atlantisLogoNavbar">
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#atlantisNavbarContent"
                 aria-controls="atlantisNavbarContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="atlantisNavbarContent">
-                <ul class="navbar-nav mr-5">
-                    <li class="nav-item dropdown">
+                <ul class="navbar-nav mr-md-5 mr-lg-2 mr-xl-5">
+                    
+                    <li class="nav-item dropdown d-none d-md-block">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categories <i
                                 class="fas fa-angle-down"></i></a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="{% url 'auction:categories' %}">
                                 View All</a>
-                                <div class="dropdown-divider"></div>
+                            <div class="dropdown-divider"></div>
                             {% for categoryItem in categoryList %}
                             <a class="dropdown-item"
                                 href="{% url 'auction:filteredByCat' categoryItem.0 %}">{{categoryItem.1}}</a>
                             {% endfor %}
                         </div>
                     </li>
-                    <li class="nav-item dropdown">
+                    <li class="nav-item">
+                        <div class="accordion d-md-none" id="navbarLinksAccordion">
+                            <div class="card" style="background-color: transparent; box-shadow: none;">
+                                <div class="card-header accordionCol p-0" id="categoryCard">
+                                    <h2 class="mb-0">
+                                        <a class="btn btn-block text-left px-0" type="button" data-toggle="collapse"
+                                            data-target="#Categories" aria-expanded="false" aria-controls="Categories"> Categories
+                                        </a>
+                                    </h2>
+                                </div>
+                                <div id="Categories" class="collapse" aria-labelledby="categoryCard"
+                                    data-parent="#navbarLinksAccordion">
+                                    <div class="card-body px-0 pt-3">
+                                        <ul class="footer-list list-unstyled ">
+                                            <li><a href="#" class="dropdown-item">View All</a></li>
+                                            {% for categoryItem in categoryList %}
+                                            <li>
+                                                <a class="dropdown-item" href="{% url 'auction:filteredByCat' categoryItem.0 %}">{{categoryItem.1}}</a>
+                                            </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="nav-item dropdown d-none d-md-block">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Listings <i
                                 class="fas fa-angle-down"></i></a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="{% url 'auction:allListings' %}">
                                 View All</a>
-                                <div class="dropdown-divider"></div>
-                            <a class="dropdown-item"
-                                href="{% url 'auction:index' %}">View Active</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{% url 'auction:index' %}">View Active</a>
                         </div>
                     </li>
+                    <li class="nav-item">
+                        <div class="accordion d-md-none" id="navbarLinksAccordion">
+                            <div class="card" style="background-color: transparent; box-shadow: none;">
+                                <div class="card-header accordionCol p-0" id="ListingCard">
+                                    <h2 class="mb-0">
+                                        <a class="btn btn-block text-left px-0" type="button" data-toggle="collapse"
+                                            data-target="#Listings" aria-expanded="false" aria-controls="Listings"> Listings
+                                        </a>
+                                    </h2>
+                                </div>
+                                <div id="Listings" class="collapse" aria-labelledby="ListingCard"
+                                    data-parent="#navbarLinksAccordion">
+                                    <div class="card-body px-0 pt-3">
+                                        <ul class="footer-list list-unstyled ">
+                                            <li><a class="dropdown-item" href="{% url 'auction:allListings' %}"> View All</a></li>
+                                            <li><a class="dropdown-item" href="{% url 'auction:index' %}">View Active</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+
                 </ul>
                 <form class="form-inline my-2 my-lg-0">
                     {% csrf_token %}
@@ -109,91 +162,189 @@
         <div class="container-fixed mt-0" id="layoutContainer" style="background-color: white;">
             {% block body %}
             {% endblock %}
-        </div>    
+        </div>
     </div>
     <div class="footer bg-light py-4 mt-5">
         <div class="row-col mx-5 mb-3">
-                <img src="{% static 'auctions/images/AtlantisLogoSPW.png' %}" alt="atlantis-logo" style="width: 280px;object-fit: contain;">
+            <img src="{% static 'auctions/images/AtlantisLogoSPW.png' %}" alt="atlantis-logo" id="atlantisLogoFooter">
         </div>
-        <div class="row mx-auto py-4 px-5" style="width: 100%;">
-            
-            <div class="col-lg-2 mb-3" style="flex: 0 0 20%; max-width: 20%; ">
-                <div>
-                    <i class="fa fa-bookmark d-inline-flex"></i>
-                    <h5 class="d-inline-flex">Useful Links</h5>
-                </div>
-                <a href="#" class="footer-link"><div>About Us</div></a>
-                <a href="#" class="footer-link"><div>About ATLANTIS Group</div></a>
-                <a href="#" class="footer-link"><div>Careers</div></a>
-                <a href="#" class="footer-link"><div>Newsletter Subscription</div></a>
-            </div>
-            <div class="col-lg-2 mb-3" style="flex: 0 0 20%; max-width: 20%; ">
-                <div>
-                    <i class="fas fa-comments d-inline-flex"></i>
-                    <h5 class="d-inline-flex">Customer Service</h5>
-                </div>
-                <a href="#" class="footer-link"><div>Contact Us</div></a>
-                <a href="#" class="footer-link"><div>About Selling</div></a>
-                <a href="#" class="footer-link"><div>About Shopping</div></a>
-                <a href="#" class="footer-link"><div>FAQ</div></a>
-                <a href="#" class="footer-link"><div>Terms and Conditions</div></a>
-            </div>
+        <div class="row mx-auto py-4 px-md-5 justify-content-between">
+
             <div class="col-lg-2 mb-3">
-                <div>
-                    <i class="fas fa-compass d-inline-flex"></i>
-                    <h5 class="d-inline-flex">Explore</h5>
-                </div>
-                <a href="#" class="footer-link"><div>New Arrivals</div></a>
-                <a href="#" class="footer-link"><div>In-Store Offers</div></a>
-                <a href="#" class="footer-link"><div>Catalogues</div></a>
-                <a href="#" class="footer-link"><div>Store Locator</div></a>
-            </div>
-            <div class="col-md-5 mb-3">
-                    <div class="row-col mt-n2">
-                        <h3>Enjoy our amazing apps!</h3>
+                <div class="widget d-none d-lg-block">
+                    <div>
+                        <i class="fa fa-bookmark d-inline-flex"></i>
+                        <h5 class="d-inline-flex">Useful Links</h5>
                     </div>
-                    <div class="row">
-                        <div class="col-6 d-flex flex-row">
-                            <img src="{% static 'auctions/images/app-store-badge.svg' %}" alt="app-store-badge" style="width: 170px; object-fit: contain">
-                        
-                            <img src="{% static 'auctions/images/google-play-badge.png' %}" alt="google-play-badge" style="width: 154px; object-fit: contain;">
+                    <ul class="footer-list list-unstyled ">
+                        <li><a href="#" class="footer-link">About Us</a></li>
+                        <li><a href="#" class="footer-link">About ATLANTIS Group</a></li>
+                        <li><a href="#" class="footer-link">Careers</a></li>
+                        <li><a href="#" class="footer-link">Newsletter Subscription</a></li>
+                    </ul>
+                </div>
+                <div class="accordion d-lg-none" id="footerLinksAccordion">
+                    <div class="card" style="background-color: transparent; box-shadow: none;">
+                        <div class="card-header accordionCol p-0" id="headingOne">
+                            <h2 class="mb-0">
+                                <a class="btn btn-block text-left p-0" type="button" data-toggle="collapse"
+                                    data-target="#UsefulLinks" aria-expanded="false" aria-controls="UsefulLinks">
+                                    <div>
+                                        <i class="fas fa-comments d-inline-flex"></i>
+                                        <h5 class="d-inline-flex">Useful Links</h5>
+                                    </div>
+                                </a>
+                            </h2>
+                        </div>
+                        <div id="UsefulLinks" class="collapse" aria-labelledby="headingOne"
+                            data-parent="#footerLinksAccordion">
+                            <div class="card-body px-0 pt-3">
+                                <ul class="footer-list list-unstyled ">
+                                    <li><a href="#" class="footer-link">About Us</a></li>
+                                    <li><a href="#" class="footer-link">About ATLANTIS Group</a></li>
+                                    <li><a href="#" class="footer-link">Careers</a></li>
+                                    <li><a href="#" class="footer-link">Newsletter Subscription</a></li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
+                </div>
+                
+            </div>
+            <div class="col-lg-2 mb-3 px-lg-0">
+                <div class="widget d-none d-lg-block">
+                    <div>
+                        <i class="fas fa-comments d-inline-flex"></i>
+                        <h5 class="d-inline-flex">Customer Service</h5>
+                    </div>
+                    <ul class="footer-list list-unstyled ">
+                        <li><a href="#" class="footer-link">Contact Us</a></li>
+                        <li><a href="#" class="footer-link">About Selling</a></li>
+                        <li><a href="#" class="footer-link">About Shopping</a></li>
+                        <li><a href="#" class="footer-link">FAQ</a></li>
+                        <li><a href="#" class="footer-link">Terms and Conditions</a></li>
+                    </ul>
+                </div>
+                <div class="accordion d-lg-none">
+                    <div class="card" style="background-color: transparent; box-shadow: none;">
+                        <div class="card-header accordionCol p-0" id="headingTwo">
+                            <h2 class="mb-0">
+                                <a class="btn btn-block text-left p-0" type="button" data-toggle="collapse"
+                                    data-target="#ContactUs" aria-expanded="false" aria-controls="ContactUs">
+                                    <div>
+                                        <i class="fas fa-comments d-inline-flex"></i>
+                                        <h5 class="d-inline-flex">Customer Service</h5>
+                                    </div>
+                                </a>
+                            </h2>
+                        </div>
+                        <div id="ContactUs" class="collapse" aria-labelledby="headingTwo"
+                            data-parent="#footerLinksAccordion">
+                            <div class="card-body px-0 pt-3">
+                                <ul class="footer-list list-unstyled ">
+                                    <li><a href="#" class="footer-link">Contact Us</a></li>
+                                    <li><a href="#" class="footer-link">About Selling</a></li>
+                                    <li><a href="#" class="footer-link">About Shopping</a></li>
+                                    <li><a href="#" class="footer-link">FAQ</a></li>
+                                    <li><a href="#" class="footer-link">Terms and Conditions</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2 mb-3">
+                <div class="widget d-none d-lg-block">
+                    <div>
+                        <i class="fas fa-comments d-inline-flex"></i>
+                        <h5 class="d-inline-flex">Explore</h5>
+                    </div>
+                    <ul class="footer-list list-unstyled ">
+                        <li><a href="#" class="footer-link">New Arrivals</a></li>
+                        <li><a href="#" class="footer-link">In-Store Offers</a></li>
+                        <li><a href="#" class="footer-link">Catalogues</a></li>
+                        <li><a href="#" class="footer-link">Store Locator</a></li>
+                    </ul>
+                </div>
+                <div class="accordion d-lg-none mb-5">
+                    <div class="card" style="background-color: transparent; box-shadow: none;">
+                        <div class="card-header accordionCol p-0" id="headingThree">
+                            <h2 class="mb-0">
+                                <a class="btn btn-block text-left p-0" type="button" data-toggle="collapse"
+                                    data-target="#Explore" aria-expanded="false" aria-controls="Explore">
+                                    <div>
+                                        <i class="fas fa-compass d-inline-flex"></i>
+                                        <h5 class="d-inline-flex">Explore</h5>
+                                    </div>
+                                </a>
+                            </h2>
+                        </div>
+                        <div id="Explore" class="collapse" aria-labelledby="headingThree"
+                            data-parent="#footerLinksAccordion">
+                            <div class="card-body px-0 pt-3">
+                                <ul class="footer-list list-unstyled ">
+                                    <li><a href="#" class="footer-link">New Arrivals</a></li>
+                                    <li><a href="#" class="footer-link">In-Store Offers</a></li>
+                                    <li><a href="#" class="footer-link">Catalogues</a></li>
+                                    <li><a href="#" class="footer-link">Store Locator</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5 mb-3">
+                <div class="row-col mt-n2">
+                    <h3>Enjoy our amazing apps!</h3>
+                </div>
+                <div class="row">
+                    <div class="col-6 d-flex flex-row">
+                        <img src="{% static 'auctions/images/app-store-badge.svg' %}" alt="app-store-badge"
+                            style="width: 170px; object-fit: contain">
+
+                        <img src="{% static 'auctions/images/google-play-badge.png' %}" alt="google-play-badge"
+                            style="width: 154px; object-fit: contain;">
+                    </div>
+                </div>
             </div>
         </div>
         <hr class="footerHR">
-        <div class="d-flex py-3 justify-content-center">
-            <a href="#" class="footer-link">
-                <div class="d-flex">
-                    <i class="fab fa-facebook footer-icon align-self-center"></i> Facebook
-                </div>
-            </a>
-            <a href="#" class="footer-link">
-                <div class="d-flex">
-                    <i class="fab fa-instagram footer-icon align-self-center"></i> Instagram
-                </div>
-            </a>
-            <a href="#" class="footer-link">
-                <div class="d-flex">
-                    <i class="fab fa-twitter footer-icon align-self-center"></i> Twitter
-                </div>
-            </a>
-            <a href="#" class="footer-link">
-                <div class="d-flex">
-                    <i class="fab fa-youtube footer-icon align-self-center"></i>Youtube
-                </div>
-            </a>
-            <a href="#" class="footer-link">
-                <div class="d-flex">
-                    <i class="fab fa-pinterest footer-icon align-self-center"></i>Pinterest
-                </div>
-            </a>
+        <div class="container py-3 mx-auto justify-content-center">
+            <div class="row justify-content-center">
+                <a href="#" class="footer-link brand">
+                    <div class="d-inline-flex">
+                        <i class="fab fa-facebook footer-icon align-self-center"></i> Facebook
+                    </div>
+                </a>
+                <a href="#" class="footer-link brand">
+                    <div class="d-inline-flex">
+                        <i class="fab fa-instagram footer-icon align-self-center"></i> Instagram
+                    </div>
+                </a>
+                <a href="#" class="footer-link brand">
+                    <div class="d-inline-flex">
+                        <i class="fab fa-twitter footer-icon align-self-center"></i> Twitter
+                    </div>
+                </a>
+                <a href="#" class="footer-link brand">
+                    <div class="d-inline-flex">
+                        <i class="fab fa-youtube footer-icon align-self-center"></i>Youtube
+                    </div>
+                </a>
+                <a href="#" class="footer-link brand">
+                    <div class="d-inline-flex">
+                        <i class="fab fa-pinterest footer-icon align-self-center"></i>Pinterest
+                    </div>
+                </a>
+            </div>
+
         </div>
         <hr class="footerHR">
         <div class="d-flex flex-column justify-content-center text-center" style="font-size: 12px; color: #bbbbbb">
-            <span>&copy; ATLANTIS GROUP Systems 2019-2020</span> 
-            <span><a href="#" class="footer-link">Privacy Policy</a> | <a href="#" class="footer-link">Cookie Policy</a></span>
-            
+            <span>&copy; ATLANTIS GROUP Systems 2019-2020</span>
+            <span><a href="#" class="footer-link">Privacy Policy</a> | <a href="#" class="footer-link">Cookie
+                    Policy</a></span>
+
         </div>
     </div>
 </body>

@@ -22,7 +22,7 @@ body {
 }
 
 .footer-icon {
-    margin-left:20px;
+    margin-left: 0px;
     margin-right: 10px;
 }
 
@@ -179,6 +179,10 @@ body {
 
 .dropdown-toggle::after {
     content: none;
+}
+
+.lead {
+    font-size: 1.625rem;
 }
 
 #layoutContainer {
@@ -376,6 +380,10 @@ body {
     top: 0px;
 }
 
+.accordion .card a {
+    color: white;
+}
+
 .card a, .card2 a {
     text-decoration: none;
     color: black;
@@ -548,6 +556,10 @@ position: fixed;
     color: #269968;
 }
 
+.brand {
+    margin-right: 10px;
+}
+
 .fa-check-circle, 
 .fa-times-circle,
 .fa-trash-alt,
@@ -595,4 +607,92 @@ position: fixed;
 }
 *::-webkit-scrollbar-thumb:hover {
     background-color: #afafaf;
+}
+
+#atlantisLogoNavbar {
+    width: 200px;
+}
+
+#atlantisLogoFooter {
+    width: 280px;
+    object-fit: contain;
+}
+
+.accordionCol h2 a:after {
+    content: "+";
+    position: absolute;
+    right: 10px;
+    top: 0.2rem;
+    transition: transform 0.25s ease-in-out;
+}
+
+.accordionCol h2 a[aria-expanded="true"]:after {
+    transform: rotate(45deg);
+}
+
+@media screen and (max-width: 768px) {
+    #atlantisLogoNavbar {
+        width: 150px;
+    }
+
+    #atlantisLogoFooter {
+        width: 180px;
+        object-fit: contain;
+    }
+
+    .footer {
+        font-size: 0.825rem;
+    }
+
+    .footer h5 {
+        font-size: 1rem;
+    }
+
+    .footer h3 {
+        font-size: 1.25rem;
+    }
+    #jumbotron-header {
+        font-size: 3rem;
+    }
+
+    .lead {
+        font-size: 0.875rem;
+    }
+
+    #helloJumbotron {
+        margin-top: 30px;
+    }
+
+    .dropdown:after {
+        content: '';
+        top: 63px;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        transition: opacity 0.2s ease-in-out;
+        opacity: 0;
+        visibility: hidden;
+        background-color: rgba(0, 0, 0, 0.7);
+        pointer-events: none;
+    }
+    
+    .dropdown.show .nav-link{
+        position:relative;
+        z-index:12;
+      }
+    
+    .dropdown.show:after{
+    z-index:10; opacity:1; 
+    visibility: hidden;
+    position: fixed;
+    }
+
+    .search-form {
+        width: 100%;
+    }
+
+    #wishlist-link a::before {
+        content: none;
+        padding: 0;
+    }
 }
