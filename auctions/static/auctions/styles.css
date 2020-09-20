@@ -186,8 +186,8 @@ body {
 }
 
 #layoutContainer {
-    margin: 0 35px;
-    padding: 15px 15px;
+    margin: 0 24px;
+    padding: 16px;
 }
 
 #listing-image {
@@ -305,11 +305,14 @@ body {
 } */
 
 .commentDisplay {
-    padding: 1rem;
+    padding: 1rem 1rem 0;
     margin-bottom: 30px;
-  background: #f3f3f3;
-  height: 250px;
-  overflow: auto;
+    background: #f3f3f3;
+    height: fit-content;
+    width: 100%; 
+    max-height: 300px; 
+    overflow-y: scroll; 
+    overflow-x: hidden;
 }
 
 .card2 {
@@ -398,6 +401,11 @@ body {
     word-wrap: none;
     overflow: hidden;
     text-overflow: ellipsis;
+    padding: 30px 25px 0;
+}
+
+.description {
+    padding: 10px 0 0;
 }
 
 #createFormContainer {
@@ -528,6 +536,12 @@ position: fixed;
     vertical-align: text-top;
 }
 
+.card-img-top {
+    height: 180px; 
+    width:90%; 
+    object-fit: contain;
+}
+
 .card2 .card-img-top {
     padding: 10px;
 }
@@ -601,7 +615,7 @@ position: fixed;
 }
 *::-webkit-scrollbar-thumb {
     background-color: #c4c4c4;
-    border-radius: 5px;
+    border-radius: 50px;
     height: 20px;
 
 }
@@ -630,7 +644,39 @@ position: fixed;
     transform: rotate(45deg);
 }
 
-@media screen and (max-width: 768px) {
+.commentAvatar {
+    border-radius: 50%;
+    width: 40px;
+}
+
+.pageHeading {
+    font-weight: 400; 
+    display: inline-flex;
+}
+
+.btn {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+/* ------------------------------------------------------------------------------------------------------ */
+/* @media screen and (max-width: ) */
+
+
+@media screen and (max-width: 1036px) {
+    .search-form {
+        width: 300px;
+    }
+}
+
+@media screen and (max-width: 991px) {
+    #wishlist-link a::before {
+        content: none;
+        padding: 0;
+    }
+}
+/* ------------------------------------------------------------------------------------------------------- */
+
+@media screen and (max-width: 767px) {
     #atlantisLogoNavbar {
         width: 150px;
     }
@@ -691,8 +737,46 @@ position: fixed;
         width: 100%;
     }
 
-    #wishlist-link a::before {
-        content: none;
+    
+
+    /* #layoutContainer {
+        margin: 0;
         padding: 0;
+    } */
+
+    .card-img-top {
+        height: 100px; 
+        width:90%; 
+        object-fit: contain;
+    }
+
+    .card-title {
+        padding: 20px 15px 0;
+    }
+
+    .description {
+        padding: 10px 0 0;
+    }
+
+    .tilePrice2 {
+        font-size: 1.125rem;
+    }
+
+    #listing-image {
+        width: 100%;
+        height: 200px;
+        object-fit: contain;
+    }
+
+    .pageHeading {
+        font-size: 1.25rem;
+        font-weight: 500;
+        margin: 0;
+        align-self: center;
+    }
+
+    .fa-th-large, .fa-th-list {
+        font-size: 1.25rem;
+        vertical-align: text-top;
     }
 }

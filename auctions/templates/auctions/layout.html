@@ -37,9 +37,9 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="atlantisNavbarContent">
-                <ul class="navbar-nav mr-md-5 mr-lg-2 mr-xl-5">
+                <ul class="navbar-nav mr-lg-2 mr-xl-5">
                     
-                    <li class="nav-item dropdown d-none d-md-block">
+                    <li class="nav-item dropdown d-none d-lg-block">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categories <i
                                 class="fas fa-angle-down"></i></a>
@@ -54,7 +54,7 @@
                         </div>
                     </li>
                     <li class="nav-item">
-                        <div class="accordion d-md-none" id="navbarLinksAccordion">
+                        <div class="accordion d-lg-none" id="navbarLinksAccordion">
                             <div class="card" style="background-color: transparent; box-shadow: none;">
                                 <div class="card-header accordionCol p-0" id="categoryCard">
                                     <h2 class="mb-0">
@@ -67,7 +67,7 @@
                                     data-parent="#navbarLinksAccordion">
                                     <div class="card-body px-0 pt-3">
                                         <ul class="footer-list list-unstyled ">
-                                            <li><a href="#" class="dropdown-item">View All</a></li>
+                                            <li><a href="{% url 'auction:categories' %}" class="dropdown-item">View All</a></li>
                                             {% for categoryItem in categoryList %}
                                             <li>
                                                 <a class="dropdown-item" href="{% url 'auction:filteredByCat' categoryItem.0 %}">{{categoryItem.1}}</a>
@@ -80,7 +80,7 @@
                         </div>
                     </li>
 
-                    <li class="nav-item dropdown d-none d-md-block">
+                    <li class="nav-item dropdown d-none d-lg-block">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Listings <i
                                 class="fas fa-angle-down"></i></a>
@@ -92,7 +92,7 @@
                         </div>
                     </li>
                     <li class="nav-item">
-                        <div class="accordion d-md-none" id="navbarLinksAccordion">
+                        <div class="accordion d-lg-none" id="navbarLinksAccordion">
                             <div class="card" style="background-color: transparent; box-shadow: none;">
                                 <div class="card-header accordionCol p-0" id="ListingCard">
                                     <h2 class="mb-0">
@@ -133,7 +133,7 @@
                 </form>
                 <ul class="navbar-nav ml-auto">
                     {% if user.is_authenticated %}
-                    <li class="nav-item dropdown" id="user-link">
+                    <li class="nav-item dropdown d-none d-lg-block" id="user-link">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarUserDropdown" role="button"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i
                                 class="fas fa-user ml-1 pr-1"></i> Hi, {{user.username|capfirst}} <i
@@ -144,6 +144,31 @@
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="{% url 'auction:logout' %}"><i
                                     class="fas fa-sign-out-alt mr-2"></i> Log Out</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <div class="accordion d-lg-none" id="navbarLinksAccordion">
+                            <div class="card" style="background-color: transparent; box-shadow: none;">
+                                <div class="card-header accordionCol p-0" id="UserAccountCard">
+                                    <h2 class="mb-0">
+                                        <a class="btn btn-block text-left px-0" type="button" data-toggle="collapse"
+                                            data-target="#UserAccount" aria-expanded="false" aria-controls="UserAccount"> <i
+                                            class="fas fa-user ml-1 pr-1"></i> Hi, {{user.username|capfirst}}
+                                        </a>
+                                    </h2>
+                                </div>
+                                <div id="UserAccount" class="collapse" aria-labelledby="UserAccountCard"
+                                    data-parent="#navbarLinksAccordion">
+                                    <div class="card-body px-0 pt-3">
+                                        <ul class="footer-list list-unstyled ">
+                                            <li><a class="dropdown-item" href="{% url 'auction:create' %}"><i
+                                                class="fas fa-plus-circle mr-2"></i> Create Listing</a></li>
+                                            <li><a class="dropdown-item" href="{% url 'auction:logout' %}"><i
+                                                class="fas fa-sign-out-alt mr-2"></i> Log Out</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </li>
                     {% else %}
@@ -159,7 +184,7 @@
                 </ul>
             </div>
         </nav>
-        <div class="container-fixed mt-0" id="layoutContainer" style="background-color: white;">
+        <div class="container-fixed mt-0 mx-0 mx-lg-5" id="layoutContainer" style="background-color: white;">
             {% block body %}
             {% endblock %}
         </div>

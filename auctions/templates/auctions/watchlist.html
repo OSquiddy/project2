@@ -9,7 +9,7 @@ Your WatchList
         {% if watchListItems %}
         <div class="row justify-content-center">
             <div class="col-10 mt-2">
-                <h3 style="font-weight: 400;">Your Watchlist</h3>
+                <h3 class="pageHeading">Your Watchlist</h3>
             </div>
         </div>
         
@@ -17,10 +17,10 @@ Your WatchList
         {% for item in watchListItems %}
         <a href="{% url 'auction:listing' item.id %}" id="watchlist-link">
             <div class="row watchlistItem">
-                <div class="col-lg-4 wlItemImg">
+                <div class="col-md-4 wlItemImg">
                     <img src="{{item.url}}" alt="" id="wlItemImg-image">
                 </div>
-                <div class="col-lg-8 wlItemInfo">
+                <div class="col-md-8 wlItemInfo">
                     <div class="row">
                         <div class="col wlItemTitle">
                             <h6> {{item.title|capfirst}} </h6>

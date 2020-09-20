@@ -7,321 +7,325 @@
 {% endblock %}
 
 {% block body %}
-{% if listing.active == False %}
-{% if winner == request.user %}
-<div class="row text-center">
-    <div class="col jumbotron py-3">
-        <h1 class="display-6" style="font-weight: 300;">You have won the bid!</h1>
+    {% if listing.active == False %}
+    {% if winner == request.user %}
+    <div class="row text-center">
+        <div class="col jumbotron py-3">
+            <h1 class="display-6" style="font-weight: 300;">You have won the bid!</h1>
+        </div>
     </div>
-</div>
-<br>
-{% endif %}
-{% endif %}
-<div class="row mt-4">
-    <div class="col-xl-4 align-self-start">
-        <img src="{{listing.url}}" alt="" id="listing-image">
-    </div>
-    <div class="col-xl-5">
-        <h4 style="font-weight: 400;">{{listing.title}}</h4>
+    <br>
+    {% endif %}
+    {% endif %}
+    <div class="row mt-4">
+        <div class="col-xl-4 align-self-start">
+            <img src="{{listing.url}}" alt="" id="listing-image">
+        </div>
+        <div class="col-xl-5">
+            <h4 style="font-weight: 400;">{{listing.title}}</h4>
 
-        <hr>
-        <div class="row bidInfoRow">
-            <div class="col-lg-3 bidInfoHeader">Condition:</div>
-            <div class="col-lg-9 bidInfoBody"> <strong>{{listing.get_condition_display}}</strong> </div>
-        </div>
-        {% if listing.active %}
-        <div class="bidMain bidInfoRow d-flex flex-column">
-            <div class="col px-0 py-2 bidStatus">
+            <hr>
+            <div class="row bidInfoRow">
+                <div class="col-3 pr-0 pr-md-3 bidInfoHeader">Condition:</div>
+                <div class="col-9 bidInfoBody"> <strong>{{listing.get_condition_display}}</strong> </div>
+            </div>
+            {% if listing.active %}
+            <div class="bidMain bidInfoRow d-flex flex-column">
+                <div class="col px-0 py-2 bidStatus">
 
-                <div class="col-lg-3 bidInfoHeader bidTroublesomeHeader">Current Bid:</div>
-                <div class="col-lg-9 bidTroublesomeBody">
-                    <div class="bidInfoBodyRow"> <strong>USD {{ latestBidPrice }}</strong> </div>
-                    <div class="bidInfoBodyRow">
-                        <form method="POST" id="bid" class="mb-1">
-                            {% csrf_token %}
-                            <input type="number" step=".01" name="bidPrice" min="{{latestBidPrice}}">
-                            <button class="btn btn-primary" id="bidSubmit" type="submit" name="bid">Make Bid</button>
-                        </form>
-                        <span style="font-size: 13px; color: #424141;">Enter USD {{latestBidPrice}} or more</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col p-0">
-                <form method="POST" id="watchlist">
-                    {% csrf_token %}
-                    {% if listing_is_present %}
-                    <button class="btn btn-primary" id="watchlistButton" type="submit" form="watchlist"
-                        name="remove-watchlist"><i class="fas fa-low-vision"></i> Remove from Watchlist</button>
-                    {% else %}
-                    <button class="btn btn-primary" id="watchlistButton" type="submit" form="watchlist"
-                        name="watchlist"><i class="fas fa-eye"></i> Add to Watchlist</button>
-                    {% endif %}
-                </form>
-            </div>
-        </div>
-        {% else %}
-        <div class="bidMain bidInfoRow d-flex flex-column">
-            <div class="col px-0 py-2 bidStatus">
-
-                <div class="col-lg-3 bidInfoHeader bidTroublesomeHeader">Bidding Status:</div>
-                <div class="col-lg-9 bidTroublesomeBody">
-                    <div class="bidInfoBodyRow">
-                        <strong>Closed</strong>
-                        <br>
-                        <span>This item has been sold!</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col p-0">
-                <form method="POST" id="watchlist">
-                    {% csrf_token %}
-                    {% if listing_is_present %}
-                    <button class="btn btn-primary" id="watchlistButton" type="submit" form="watchlist"
-                        name="remove-watchlist"><i class="fas fa-low-vision"></i> Remove from Watchlist</button>
-                    {% else %}
-                    <button class="btn btn-primary" id="watchlistButton" type="submit" form="watchlist"
-                        name="watchlist"><i class="fas fa-eye"></i> Add to Watchlist</button>
-                    {% endif %}
-                </form>
-            </div>
-        </div>
-        {% endif %}
-        <div class="row bidInfoRow">
-            <div class="col-lg-3 bidInfoHeader">Shipping:</div>
-            <div class="col-lg-9 bidInfoBody">
-                <p><b>USD 13.99</b> Royal Mail International Tracked | <a href="#">See details</a> </p>
-                <p>
-                    International shipments may be subject to customs processing and additional charges <i
-                        class="fas fa-question-circle"></i>
-                </p>
-                <p> Item location: Diagon Alley, UK </p>
-                <p> Ships to: Worldwide <a href="#">See exclusions</a> </p>
-            </div>
-        </div>
-        <div class="row bidInfoRow">
-            <div class="col-lg-3 bidInfoHeader">Delivery:</div>
-            <div class="col-lg-9 bidInfoBody">
-                Anytime between <strong>Aug 15th, 2020</strong> and <strong>Aug 19th, 2020</strong>.
-            </div>
-        </div>
-        <div class="row bidInfoRow">
-            <div class="col-lg-3 bidInfoHeader">Payments:</div>
-            <div class="col-lg-9 bidInfoBody payments">
-                <i class="fab fa-cc-visa"></i>
-                <i class="fab fa-cc-mastercard"></i>
-                <i class="fab fa-cc-paypal"></i>
-                <i class="fab fa-cc-amex"></i>
-                <i class="fab fa-cc-apple-pay"></i>
-                <i class="fab fa-google-pay"></i>
-            </div>
-        </div>
-        <div class="row bidInfoRow">
-            <div class="col-lg-3 bidInfoHeader">Returns:</div>
-            <div class="col-lg-9 bidInfoBody"> Seller does not accept returns | <a href="#">See details</a> </div>
-        </div>
-    </div>
-    <div class="col-xl-3 bidSellerInfo " style="font-size: 15px;">
-        <div class="row d-flex justify-content-center">
-            <div class="col-11 pb-1">
-                <div class="row">
-                    {% if user == listing.user %}
-                    <div class="col pl-3 mb-3 pb-3 mt-2"
-                        style=" box-shadow: 1px 2px 5px 1px #dadada; border-radius: 8px;">
-                        <div class="row justify-content-center" id="listing-options">
-                            <span style="font-size: 18px;">Options</span>
+                    <div class="col-3 pr-0 pr-md-3 bidInfoHeader bidTroublesomeHeader">Current Bid:</div>
+                    <div class="col-9 bidTroublesomeBody">
+                        <div class="bidInfoBodyRow"> <strong>USD {{ latestBidPrice }}</strong> </div>
+                        <div class="bidInfoBodyRow">
+                            <form method="POST" id="bid" class="mb-1">
+                                {% csrf_token %}
+                                <input type="number" step=".01" name="bidPrice" min="{{latestBidPrice}}">
+                                <button class="btn btn-primary mt-2 mt-lg-0" id="bidSubmit" type="submit" name="bid">Make
+                                    Bid</button>
+                            </form>
+                            <span style="font-size: 13px; color: #424141;">Enter USD {{latestBidPrice}} or more</span>
                         </div>
-                        <form method="POST" id="activationForm" class="my-2">
-                            {% csrf_token %}
-                            {% if listing.active == True %}
-                            <button class="btn btn-danger" id="toggle-button" type="submit" name="toggle"><i
-                                    class="fas fa-times-circle"></i> &nbsp; Deactivate</button>
-                            {% else %}
-                            <button class="btn btn-success" id="toggle-button" type="submit" name="toggle"><i
-                                    class="fas fa-check-circle"></i> &nbsp; Activate &nbsp;</button>
-                            {% endif %}
-                            <button class="btn btn-primary" id="toggle-button" type="submit" name="edit"><i
-                                    class="fas fa-edit"></i> &nbsp; Edit &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </button>
-                            <button class="btn btn-dark" id="toggle-button" type="submit" name="delete"><i
-                                    class="fas fa-trash-alt"></i> &nbsp; Delete &nbsp; &nbsp; &nbsp; </button>
-                        </form>
-                    </div>
-                    {% endif %}
-                </div>
-            </div>
-            <div class="col-11 pb-1 mb-3" style=" box-shadow: 1px 2px 5px 1px #dadada; border-radius: 8px;">
-                <div class="row">
-                    <div class="col pl-3 my-2">
-                        Shop with confidence
                     </div>
                 </div>
-                <div class="row d-flex justify-content-center mb-3">
-                    <div class="col-2 align-self-center ml-n2"><i class="fas fa-shield-alt" style="font-size: 28px"></i>
-                    </div>
-                    <div class="col-10 ml-n2 ">
-                        <span style="font-size: 15px">Atlantis Money Back Guarantee</span>
-                        <br>
-                        <div style="color:grey; font-size: 13px;">Get the item you ordered or get your money back. <a
-                                href="#">Learn more</a></div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-11 mb-3 pb-1" style=" box-shadow: 1px 2px 5px 1px #dadada; border-radius: 8px;">
-                <div class="row">
-                    <div class="col pl-3 mb-1 mt-2">
-                        <span>Seller Information:</span>
-                        <div class="mt-1"> <a href="#">{{listing.user.get_username|capfirst}}</a></div>
-                        <hr style="margin: 5px 0;">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col pl-3 mb-2">
-                        <a href="#"> Save this seller</a>
-                        <div> <a href="#">See other items</a> </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-11 pb-3" style=" box-shadow: 1px 2px 5px 1px #dadada; border-radius: 8px;">
-                <div class="row">
-                    <div class="col pl-3 my-2">Other sellers on Atlantis.com:</div>
-                </div>
-                <div class="row">
-                    <div class="col d-flex flex-column">
-                        {% for seller in otherSellersList %}
-                        <a href="#">{{seller.username|capfirst}}</a>
-                        {% endfor %}
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-<br>
-<hr style="width:75%; margin-left: 0;">
-<div class="row">
-    <div class="col-5">
-        <h5>Description</h5>
-        <p>{{listing.description}}</p>
-    </div>
-    <div class="col-4">
-        <h5>Additional Information</h5>
-        <table id="DescriptionTable">
-            <tr>
-                <td>Category</td>
-                <td>
-                    {% if listing.cat1 %}
-                    {{listing.get_cat1_display}}
-                    {% if listing.cat2 != "" %}
-                    , {{listing.get_cat2_display}}
-                    {% endif %}
-                    {% if listing.cat3 != "" %}
-                    , {{listing.get_cat3_display}}
-                    {% endif %}
-                    {% endif %}
-                </td>
-            </tr>
-            <tr>
-                <td>Status</td>
-                <td>{% if listing.active is True %} Active {% else %} Inactive {% endif %}</td>
-            </tr>
-            <tr>
-                <td>Start price</td>
-                <td>${{listing.start_price}}</td>
-            </tr>
-            <tr>
-                <td>Posted on</td>
-                <td>{{listing.date}}</td>
-            </tr>
-        </table>
-    </div>
-</div>
-</div>
-<br>
-<hr>
-<h5>Recently Viewed</h5>
-<div class="row m-0 mt-4">
-    {% for item in recentViewsList %}
-    <div class="col-2 p-0 pb-4 card">
-        <a href="{% url 'auction:listing' item.id %}">
-            <img src="{{item.url}}" class="card-img-top" alt="{{item.title}}-image"
-                style="height: 140px; width:90%; object-fit: contain;">
-            <span class="card-title" style="padding: 30px 15px 0">{{item.title|capfirst}}</span>
-            <h5 class="card-text text-right tilePrice">${{item.start_price}}</h5>
-        </a>
-    </div>
-    {% endfor %}
-</div>
-<br>
-<hr>
-<h5>Other Items by Seller</h5>
-<div class="row m-0 mt-4">
-    {% for item in otherItemsList %}
-    <div class="col-2 p-0 pb-4 card">
-        <a href="{% url 'auction:listing' item.id %}">
-            <img src="{{item.url}}" class="card-img-top" alt="{{item.title}}-image"
-                style="height: 140px; width:90%; object-fit: contain;">
-            <span class="card-title" style="padding: 30px 15px 0">{{item.title|capfirst}}</span>
-            <h5 class="card-text text-right tilePrice">${{item.start_price}}</h5>
-        </a>
-    </div>
-    {% endfor %}
-</div>
-<br>
-<hr>
-<div class="row">
-    <div class="col-md-9">
-        <h5>Comments</h5>
-        <br>
-        <div class="pl-3">
-            
-                {% if comments %}
-                <div class="commentDisplay" style="width: 100%; max-height: 300px; overflow-y: scroll; overflow-x: hidden;" data-simplebar>
-                {% for comment in comments %}
-                <div class="row comment">
-                    <div class="col-sm-2 col-lg-1">
-                        <img class="commentAvatar" src="{% static 'auctions/images/defaultAvatar.png' %}"
-                            alt="default-user-avatar" style="width:40px; border-radius: 20px;">
-                    </div>
-                    <div class="col-sm-10 col-lg-11 pl-0">
-                        <div class="comment-meta">
-                            <strong>{{comment.user.get_username|capfirst}}</strong>
-                        </div>
-                        <div class="comment-message">
-                            {{comment.comment}}
-                        </div>
-                        <span style="color: grey; font-size: 13px">
-                            <a href="#">Like</a>
-                            {% load tz %} {{comment.datetime|timezone:"Asia/Dubai"|timesince|upto}} ago <i
-                                class="fas fa-thumbs-up" style="font-size: 11px; margin-left: 5px; display: none;"></i>
-                        </span>
-                    </div>
-                </div>
-                <hr class="my-0 mx-n3 p-0">
-                {% endfor %}
-                {% endif %}
-            </div>
-            <div class="row mt-3">
-                <div class="col-1 col-sm-2 col-lg-1">
-                    <img class="commentAvatar" src="{% static 'auctions/images/defaultAvatar.png' %}"
-                        alt="default-user-avatar" style="width:60px; margin-right: 15px;">
-                </div>
-                <div class="col-11 col-sm-10 col-lg-11">
-                    <form method="POST" id="commentform" class="mb-2">
+                <div class="col p-0">
+                    <form method="POST" id="watchlist">
                         {% csrf_token %}
-                        {% if not comments %}
-                        <textarea name="comment-text" id="commentBox" rows="2"
-                            placeholder="Be the first to comment!"></textarea>
+                        {% if listing_is_present %}
+                        <button class="btn btn-primary" id="watchlistButton" type="submit" form="watchlist"
+                            name="remove-watchlist"><i class="fas fa-low-vision"></i> Remove from Watchlist</button>
                         {% else %}
-                        <textarea name="comment-text" id="commentBox" rows="2"
-                            placeholder="Add a public comment"></textarea>
+                        <button class="btn btn-primary" id="watchlistButton" type="submit" form="watchlist"
+                            name="watchlist"><i class="fas fa-eye"></i> Add to Watchlist</button>
                         {% endif %}
                     </form>
-                    <button class="btn btn-primary" type="submit" name="comment" id="commentButton"
-                        form="commentform">Comment</button>
                 </div>
             </div>
+            {% else %}
+            <div class="bidMain bidInfoRow d-flex flex-column">
+                <div class="col px-0 py-2 bidStatus">
 
+                    <div class="col-3 pr-0 pr-md-3 bidInfoHeader bidTroublesomeHeader">Bidding Status:</div>
+                    <div class="col-9 bidTroublesomeBody">
+                        <div class="bidInfoBodyRow">
+                            <strong>Closed</strong>
+                            <br>
+                            <span>This item has been sold!</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col p-0">
+                    <form method="POST" id="watchlist">
+                        {% csrf_token %}
+                        {% if listing_is_present %}
+                        <button class="btn btn-primary" id="watchlistButton" type="submit" form="watchlist"
+                            name="remove-watchlist"><i class="fas fa-low-vision"></i> Remove from Watchlist</button>
+                        {% else %}
+                        <button class="btn btn-primary" id="watchlistButton" type="submit" form="watchlist"
+                            name="watchlist"><i class="fas fa-eye"></i> Add to Watchlist</button>
+                        {% endif %}
+                    </form>
+                </div>
+            </div>
+            {% endif %}
+            <div class="row bidInfoRow">
+                <div class="col-3 pr-0 pr-md-3 bidInfoHeader">Shipping:</div>
+                <div class="col-9 bidInfoBody">
+                    <p><b>USD 13.99</b> Royal Mail International Tracked | <a href="#">See details</a> </p>
+                    <p>
+                        International shipments may be subject to customs processing and additional charges <i
+                            class="fas fa-question-circle"></i>
+                    </p>
+                    <p> Item location: Diagon Alley, UK </p>
+                    <p> Ships to: Worldwide <a href="#">See exclusions</a> </p>
+                </div>
+            </div>
+            <div class="row bidInfoRow">
+                <div class="col-3 pr-0 pr-md-3 bidInfoHeader">Delivery:</div>
+                <div class="col-9 bidInfoBody">
+                    Anytime between <strong>Aug 15th, 2020</strong> and <strong>Aug 19th, 2020</strong>.
+                </div>
+            </div>
+            <div class="row bidInfoRow">
+                <div class="col-3 pr-0 pr-md-3 bidInfoHeader">Payments:</div>
+                <div class="col-9 bidInfoBody payments">
+                    <i class="fab fa-cc-visa"></i>
+                    <i class="fab fa-cc-mastercard"></i>
+                    <i class="fab fa-cc-paypal"></i>
+                    <i class="fab fa-cc-amex"></i>
+                    <i class="fab fa-cc-apple-pay"></i>
+                    <i class="fab fa-google-pay"></i>
+                </div>
+            </div>
+            <div class="row bidInfoRow">
+                <div class="col-3 pr-0 pr-md-3 bidInfoHeader">Returns:</div>
+                <div class="col-9 bidInfoBody"> Seller does not accept returns | <a href="#">See details</a> </div>
+            </div>
+        </div>
+        <div class="col-xl-3 bidSellerInfo " style="font-size: 15px;">
+            <div class="row d-flex justify-content-center">
+                <div class="col-11 pb-1">
+                    <div class="row">
+                        {% if user == listing.user %}
+                        <div class="col pl-3 mb-3 pb-3 mt-2"
+                            style=" box-shadow: 1px 2px 5px 1px #dadada; border-radius: 8px;">
+                            <div class="row justify-content-center" id="listing-options">
+                                <span style="font-size: 18px;">Options</span>
+                            </div>
+                            <form method="POST" id="activationForm" class="my-2">
+                                {% csrf_token %}
+                                {% if listing.active == True %}
+                                <button class="btn btn-danger" id="toggle-button" type="submit" name="toggle"><i
+                                        class="fas fa-times-circle"></i> &nbsp; Deactivate</button>
+                                {% else %}
+                                <button class="btn btn-success" id="toggle-button" type="submit" name="toggle"><i
+                                        class="fas fa-check-circle"></i> &nbsp; Activate &nbsp;</button>
+                                {% endif %}
+                                <button class="btn btn-primary" id="toggle-button" type="submit" name="edit"><i
+                                        class="fas fa-edit"></i> &nbsp; Edit &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                </button>
+                                <button class="btn btn-dark" id="toggle-button" type="submit" name="delete"><i
+                                        class="fas fa-trash-alt"></i> &nbsp; Delete &nbsp; &nbsp; &nbsp; </button>
+                            </form>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-11 pb-1 mb-3" style=" box-shadow: 1px 2px 5px 1px #dadada; border-radius: 8px;">
+                    <div class="row">
+                        <div class="col pl-3 my-2">
+                            Shop with confidence
+                        </div>
+                    </div>
+                    <div class="row d-flex justify-content-center mb-3">
+                        <div class="col-2 align-self-center ml-n2"><i class="fas fa-shield-alt"
+                                style="font-size: 28px"></i>
+                        </div>
+                        <div class="col-10 ml-n2 ">
+                            <span style="font-size: 15px">Atlantis Money Back Guarantee</span>
+                            <br>
+                            <div style="color:grey; font-size: 13px;">Get the item you ordered or get your money back.
+                                <a href="#">Learn more</a></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-11 mb-3 pb-1" style=" box-shadow: 1px 2px 5px 1px #dadada; border-radius: 8px;">
+                    <div class="row">
+                        <div class="col pl-3 mb-1 mt-2">
+                            <span>Seller Information:</span>
+                            <div class="mt-1"> <a href="#">{{listing.user.get_username|capfirst}}</a></div>
+                            <hr style="margin: 5px 0;">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col pl-3 mb-2">
+                            <a href="#"> Save this seller</a>
+                            <div> <a href="#">See other items</a> </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-11 pb-3" style=" box-shadow: 1px 2px 5px 1px #dadada; border-radius: 8px;">
+                    <div class="row">
+                        <div class="col pl-3 my-2">Other sellers on Atlantis.com:</div>
+                    </div>
+                    <div class="row">
+                        <div class="col d-flex flex-column">
+                            {% for seller in otherSellersList %}
+                            <a href="#">{{seller.username|capfirst}}</a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-</div>
+    <br>
+    <hr style="width:75%; margin-left: 0;">
+    <div class="row">
+        <div class="col-lg-5">
+            <h5>Description</h5>
+            <p>{{listing.description}}</p>
+        </div>
+        <div class="col-lg-4">
+            <h5>Additional Information</h5>
+            <table id="DescriptionTable">
+                <tr>
+                    <td>Category</td>
+                    <td>
+                        {% if listing.cat1 %}
+                        {{listing.get_cat1_display}}
+                        {% if listing.cat2 != "" %}
+                        , {{listing.get_cat2_display}}
+                        {% endif %}
+                        {% if listing.cat3 != "" %}
+                        , {{listing.get_cat3_display}}
+                        {% endif %}
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <td>Status</td>
+                    <td>{% if listing.active is True %} Active {% else %} Inactive {% endif %}</td>
+                </tr>
+                <tr>
+                    <td>Start price</td>
+                    <td>${{listing.start_price}}</td>
+                </tr>
+                <tr>
+                    <td>Posted on</td>
+                    <td>{{listing.date}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <br>
+    <hr>
+    <h5>Recently Viewed</h5>
+    <div class="row m-0 mt-4">
+        {% for item in recentViewsList %}
+        <div class="col-lg-2 col-md-3 col-6 p-0 pb-4 card">
+            <a href="{% url 'auction:listing' item.id %}">
+                <img src="{{item.url}}" class="card-img-top" alt="{{item.title}}-image"
+                    style="height: 140px; width:90%; object-fit: contain;">
+                <span class="card-title" style="padding: 30px 15px 0">{{item.title|capfirst}}</span>
+                <h5 class="card-text text-right tilePrice">${{item.start_price}}</h5>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+    <br>
+    <hr>
+    <h5>Other Items by Seller</h5>
+    <div class="row m-0 mt-4">
+        {% for item in otherItemsList %}
+        <div class="col-lg-2 col-md-3 col-6 p-0 pb-4 card">
+            <a href="{% url 'auction:listing' item.id %}">
+                <img src="{{item.url}}" class="card-img-top" alt="{{item.title}}-image"
+                    style="height: 140px; width:90%; object-fit: contain;">
+                <span class="card-title" style="padding: 30px 15px 0">{{item.title|capfirst}}</span>
+                <h5 class="card-text text-right tilePrice">${{item.start_price}}</h5>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+    <br>
+    <hr>
+    <div class="row">
+        <div class="col-md-9">
+            <h5>Comments</h5>
+            <br>
+            <div class="pl-lg-3">
+
+                {% if comments %}
+                <div class="commentDisplay" data-simplebar>
+                    {% for comment in comments %}
+                    <div class="row comment">
+                        <div class="col-2 col-lg-1">
+                            <img class="commentAvatar" src="{% static 'auctions/images/defaultAvatar.png' %}"
+                                alt="default-user-avatar">
+                        </div>
+                        <div class="col-10 col-lg-11 pl-lg-0">
+                            <div class="comment-meta">
+                                <strong>{{comment.user.get_username|capfirst}}</strong>
+                            </div>
+                            <div class="comment-message">
+                                {{comment.comment}}
+                            </div>
+                            <span style="color: grey; font-size: 13px">
+                                <a href="#">Like</a>
+                                {% load tz %} {{comment.datetime|timezone:"Asia/Dubai"|timesince|upto}} ago <i
+                                    class="fas fa-thumbs-up"
+                                    style="font-size: 11px; margin-left: 5px; display: none;"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <hr class="my-0 mx-n3 p-0">
+                    {% endfor %}
+                    {% endif %}
+                </div>
+                <div class="row mt-3">
+                    <div class="col-1 col-sm-2 col-lg-1">
+                        <img class="commentAvatar d-none d-md-block" src="{% static 'auctions/images/defaultAvatar.png' %}"
+                            alt="default-user-avatar" style="margin-right: 15px;">
+                    </div>
+                    <div class="col-11 col-sm-10 col-lg-11">
+                        <form method="POST" id="commentform" class="mb-2">
+                            {% csrf_token %}
+                            {% if not comments %}
+                            <textarea name="comment-text" id="commentBox" rows="2"
+                                placeholder="Be the first to comment!"></textarea>
+                            {% else %}
+                            <textarea name="comment-text" id="commentBox" rows="2"
+                                placeholder="Add a public comment"></textarea>
+                            {% endif %}
+                        </form>
+                        <button class="btn btn-primary" type="submit" name="comment" id="commentButton"
+                            form="commentform">Comment</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
 </div>
 
 {% endblock %}

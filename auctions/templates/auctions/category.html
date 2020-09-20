@@ -8,14 +8,14 @@
     {% if user.is_authenticated %}
     <div class="row mb-4 mt-4 mx-auto" style="width: 94%;">
         <div class="col d-flex">
-            <h3 style="font-weight: 400; display: inline-flex;">
+            <h3 class="pageHeading">
                 Category:&nbsp;<i>{{category}} </i>
             </h3>
         </div>
     </div>
     <div class="row mx-auto" style="width: 90%;">
         {% for item in listing %}
-        <div class="col-lg-3 p-0">
+        <div class="col-lg-3 col-6 p-0">
             <div class="card2 h-100">
                 <a href="{% url 'auction:listing' item.id %}">
                     <img src="{{item.url}}" class="card-img-top" alt="{{item.title}}-image"
